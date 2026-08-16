@@ -1,0 +1,42 @@
+name: Build IPA
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate Xcode project
+        run: xcodegen generate
+        working-directory: blank
+
+      - name: Build unsigned .app
+        run: |
+          xcodebuild -project blank.xcodeproj \
+            -scheme blank \
+            -configuration Release \
+            -sdk iphoneos \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            -derivedDataPath build
+        working-directory: blank
+
+      - name: Package IPA
+        run: |
+          mkdir Payload
+          cp -r blank/build/Build/Products/Release-iphoneos/blank.app Payload/
+          zip -r blank.ipa Payload
+
+      - name: Upload IPA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: blank-ipa
+          path: blank.ipa
