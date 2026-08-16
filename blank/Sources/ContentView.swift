@@ -2,7 +2,7 @@ import SwiftUI
 
 struct TouchCaptureView: View {
     // Change this to your PC's local IP address (e.g. from ipconfig on Windows)
-    private let pcIP = "172.20.10.2"
+    private let pcIP = "192.168.0.188"
     private let pcPort: UInt16 = 5005
 
     @StateObject private var sender = UDPDeltaSender()
