@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct TouchCaptureView: View {
-    @StateObject private var sender = UDPDeltaSender()
+    @StateObject private var sender = TCPDeltaSender()
 
     var body: some View {
         ZStack {
@@ -25,7 +25,7 @@ struct TouchCaptureView: View {
             )
         }
         .onAppear {
-            sender.startDiscovery()
+            sender.startListening()
         }
     }
 }
