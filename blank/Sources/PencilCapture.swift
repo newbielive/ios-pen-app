@@ -25,8 +25,6 @@ class PencilCaptureUIView: UIView {
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = pencilTouch(in: touches) else { return }
 
-        // Coalesced touches: catch samples the Pencil captured between
-        // screen frames, so we don't discard high-frequency sensor data
         if let coalesced = event?.coalescedTouches(for: touch) {
             for t in coalesced {
                 processTouch(t)
@@ -35,9 +33,6 @@ class PencilCaptureUIView: UIView {
             processTouch(touch)
         }
 
-        // Predicted touch: system's best guess of where the pencil is
-        // heading next, sent immediately rather than waiting for the
-        // real sample — shaves perceived latency
         if let predicted = event?.predictedTouches(for: touch)?.last {
             processTouch(predicted, isPrediction: true)
         }
@@ -60,8 +55,6 @@ class PencilCaptureUIView: UIView {
         let dx = point.x - last.x
         let dy = point.y - last.y
         onDelta?(dx, dy)
-        // Only real (non-predicted) touches become the new baseline,
-        // or the prediction's slight inaccuracy accumulates as drift
         if !isPrediction {
             lastPoint = point
         }
