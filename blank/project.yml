@@ -1,6 +1,6 @@
 name: blank
 options:
-  bundleIdPrefix: com.blank 
+  bundleIdPrefix: com.newbie
 targets:
   blank:
     type: application
@@ -13,6 +13,6 @@ targets:
         UILaunchScreen: {}
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.blank 
+        PRODUCT_BUNDLE_IDENTIFIER: com.yourname.blank
         SWIFT_VERSION: "5.0"
         PRODUCT_NAME: blank
