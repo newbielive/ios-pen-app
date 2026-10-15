@@ -13,6 +13,6 @@ targets:
         UILaunchScreen: {}
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.yourname.blank
+        PRODUCT_BUNDLE_IDENTIFIER: com.newbie.blank
         SWIFT_VERSION: "5.0"
         PRODUCT_NAME: blank
